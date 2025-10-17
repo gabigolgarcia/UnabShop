@@ -23,14 +23,14 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val navController = rememberNavController()
-            val startDestination = "home"
+            val startDestination = "Login"
 
             NavHost(navController, startDestination) {
                 composable(route = "Login") {
-                    LoginScreen()
+                    LoginScreen(onClickRegister = {navController.navigate("register")})
                 }
                 composable (route = "register") {
-                    RegisterScreen()
+                    RegisterScreen(onClickBack = {navController.popBackStack()})
                 }
                 composable (route = "home") {
                     HomeScreen()

@@ -24,6 +24,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,12 +38,21 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onClickRegister:()-> Unit={}) {
+
+    val  auth = Firebase.auth
+
+    //estados
+    var inputEmail by remember { mutableStateOf("") }
+
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
@@ -70,7 +83,7 @@ fun LoginScreen() {
 
             // Campo de Correo Electrónico
             OutlinedTextField(
-                value = "", // Valor vacío (sin estado)
+                value = inputEmail,
                 onValueChange = {},
                 label = { Text("Correo Electrónico") },
                 leadingIcon = {
@@ -112,7 +125,10 @@ fun LoginScreen() {
             Spacer(modifier = Modifier.height(24.dp))
             // Botón de Iniciar Sesión
             Button(
-                onClick = { },
+                onClick = {
+
+
+                          },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -127,7 +143,7 @@ fun LoginScreen() {
             }
             Spacer(modifier = Modifier.height(16.dp))
             // Enlace para Registrarse
-            TextButton(onClick = {}) {
+            TextButton(onClick = onClickRegister) {
                 Text(
                     text = "¿No tienes una cuenta? Regístrate",
                     color = Color(0xFFFF9900)
